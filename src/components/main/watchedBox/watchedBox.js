@@ -5,14 +5,11 @@ import WatchedList from "./watchedList";
 
 export default function WatchedBox() {
     // state
-    const [isOpen2, setIsOpen2] = useState(true);
     const [watched, setWatched] = useState(tempWatchedData);
+    const [isOpen2, setIsOpen2] = useState(true);
     // UI
     return <div className="box">
-        <button
-            className="btn-toggle"
-            onClick={() => setIsOpen2((open) => !open)}
-        >
+        <button className="btn-toggle" onClick={() => setIsOpen2((open) => !open)}>
             {isOpen2 ? "–" : "+"}
         </button>
         {isOpen2 && (

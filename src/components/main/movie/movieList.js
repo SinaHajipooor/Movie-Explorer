@@ -1,10 +1,8 @@
-import { useState } from "react";
-import { tempMovieData } from "../../../data/dummyData";
+
 import MovieItem from "./movieItem";
 
-export default function MovieList() {
-    // state 
-    const [movies, setMovies] = useState(tempMovieData);
+export default function MovieList({ movies }) {
+
     // UI
     return <ul className="list">
         {movies?.map((movie) => (

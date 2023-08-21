@@ -1,18 +1,18 @@
 import { useState } from "react";
 
 
-export default function ListBox({ children }) {
+export default function Box({ children }) {
     // state 
-    const [isOpen1, setIsOpen1] = useState(true);
+    const [isOpen, setIsOpen] = useState(true);
     // UI
     return <div className="box">
         <button
             className="btn-toggle"
-            onClick={() => setIsOpen1((open) => !open)}
+            onClick={() => setIsOpen((open) => !open)}
         >
-            {isOpen1 ? "–" : "+"}
+            {isOpen ? "–" : "+"}
         </button>
-        {isOpen1 && (
+        {isOpen && (
             children
         )}
     </div>

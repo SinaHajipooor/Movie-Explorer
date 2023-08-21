@@ -14,7 +14,7 @@ const starContainerStyle = {
 
 
 
-export default function StarRating({ maxRating = 5, color = '#fcc419', size = 48, className = "" }) {
+export default function StarRating({ maxRating = 5, color = '#fcc419', size = 48, className = "", onSetRating }) {
     // states
     const [rating, setRating] = useState(0);
     const [tempRating, setTempRating] = useState(0)
@@ -29,6 +29,8 @@ export default function StarRating({ maxRating = 5, color = '#fcc419', size = 48
     // methods
     function handleRating(rating) {
         setRating(rating);
+        // use this to allow user to set the rating from outside of this component
+        onSetRating(rating);
     }
 
     // UI

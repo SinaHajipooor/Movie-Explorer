@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { tempMovieData, tempWatchedData } from "../../data/dummyData";
 import ListBox from "./listBox";
 import WatchedBox from "./watchedBox";
 

@@ -2,9 +2,11 @@ import { useState } from "react";
 import Main from "./components/main/main";
 import NavBar from "./components/navBar/navBar";
 import { tempMovieData } from "./data/dummyData";
-import Logo from "./components/navBar/logo";
 import Search from "./components/navBar/search";
 import NumResults from "./components/navBar/numResults";
+import ListBox from "./components/main/movie/listBox";
+import WatchedBox from "./components/main/watchedBox/watchedBox";
+import MovieList from "./components/main/movie/movieList";
 
 export default function App() {
     // state 
@@ -12,11 +14,15 @@ export default function App() {
     return (
         <>
             <NavBar >
-                <Logo />
                 <Search />
                 <NumResults movies={movies} />
             </NavBar>
-            <Main movies={movies} />
+            <Main >
+                <ListBox >
+                    <MovieList movies={movies} />
+                </ListBox>
+                <WatchedBox />
+            </Main>
         </>
     );
 }

@@ -3,14 +3,10 @@ import { tempWatchedData } from "../../../data/dummyData";
 import WatchedSummary from "./watchedSummary";
 import WatchedList from "./watchedList";
 
-
-
-
 export default function WatchedBox() {
     // state
     const [isOpen2, setIsOpen2] = useState(true);
     const [watched, setWatched] = useState(tempWatchedData);
-
     // UI
     return <div className="box">
         <button

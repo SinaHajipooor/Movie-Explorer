@@ -1,4 +1,4 @@
-import ListBox from "./listBox";
+import ListBox from "./movie/listBox";
 import WatchedBox from "./watchedBox/watchedBox";
 
 

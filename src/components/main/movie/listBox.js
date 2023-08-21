@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MovieList from "./movie/movieList";
+import MovieList from "./movieList";
 
 export default function ListBox() {
     // state 

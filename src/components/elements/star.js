@@ -6,8 +6,8 @@ const starStyle = {
     cursor: 'pointer',
 };
 
-export default function Star({ onRate, isFull }) {
-    return <span role="button" style={starStyle} onClick={onRate}>
+export default function Star({ onRate, isFull, onHoverIn, onHoverOut }) {
+    return <span role="button" style={starStyle} onClick={onRate} onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
         {isFull ?
             <svg
                 xmlns="http://www.w3.org/2000/svg"

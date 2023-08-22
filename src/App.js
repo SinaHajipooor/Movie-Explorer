@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Main from "./components/main/main";
 import NavBar from "./components/navBar/navBar";
 import { tempMovieData, tempWatchedData } from "./data/dummyData";
@@ -10,10 +10,16 @@ import WatchedSummary from "./components/main/watchedBox/watchedSummary";
 import WatchedList from "./components/main/watchedBox/watchedList";
 
 
+const APIKEY = '76e7fb94';
+
 export default function App() {
     // state 
     const [movies, setMovies] = useState(tempMovieData);
     const [watched, setWatched] = useState(tempWatchedData);
+    // lifecycles
+    useEffect(function () {
+        fetch(`http://www.omdbapi.com/?apikey=${APIKEY}&s=interstellar`).then(res => res.json()).then(data => setMovies(data.Search));
+    }, [])
     // UI
     return (
         <>

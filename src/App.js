@@ -58,6 +58,9 @@ export default function App() {
     function handleAddWatch(movie) {
         setWatched(curWatched => [...curWatched, movie])
     }
+    function handleDeleteWatched(id) {
+        setWatched(curWatched => curWatched.filter(movie => movie.imdbID !== id))
+    }
     // UI
     return (
         <>
@@ -75,7 +78,7 @@ export default function App() {
                     {selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} onAddWatched={handleAddWatch} watched={watched} />
                         :
                         <> <WatchedSummary watched={watched} />
-                            <WatchedList watched={watched} />
+                            <WatchedList watched={watched} onDeleteWatched={handleDeleteWatched} />
                         </>
                     }
                 </Box>

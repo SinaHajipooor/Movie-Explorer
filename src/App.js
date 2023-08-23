@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Main from "./components/main/main";
 import NavBar from "./components/navBar/navBar";
-import { tempWatchedData } from "./data/dummyData";
 import Search from "./components/navBar/search";
 import NumResults from "./components/navBar/numResults";
 import MovieList from "./components/main/movie/movieList";
@@ -18,7 +17,7 @@ const APIKEY = '76e7fb94';
 export default function App() {
     // state 
     const [movies, setMovies] = useState([]);
-    const [watched, setWatched] = useState(tempWatchedData);
+    const [watched, setWatched] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [query, setQuery] = useState('');

@@ -18,9 +18,9 @@ export default function App() {
     // state 
     const [movies, setMovies] = useState(tempMovieData);
     const [watched, setWatched] = useState(tempWatchedData);
-    const [query, setQuery] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [query, setQuery] = useState();
     // lifecycles
     useEffect(() => {
         async function fetchMovies() {
@@ -44,7 +44,7 @@ export default function App() {
     return (
         <>
             <NavBar >
-                <Search />
+                <Search query={query} setQuery={setQuery} />
                 <NumResults movies={movies} />
             </NavBar>
             <Main >

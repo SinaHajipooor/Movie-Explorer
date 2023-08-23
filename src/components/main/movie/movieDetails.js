@@ -13,6 +13,8 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
     const [userRating, setUserRating] = useState('');
     const { Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released, Actors: actors, Director: director, Genre: genre } = movie; // destructur the info that we want , from the movie object 
     const isWatched = watched.map(movie => movie.imdbID).includes(selectedId); // to check if the current movie is in the watched list or not 
+    const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating;
+
     //  lifecycle 
     useEffect(function () {
         async function fetchMovieDetails() {
@@ -48,7 +50,7 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
                 <section>
                     <div className="rating">
                         {!isWatched ? <> < StarRating maxRating={10} size={24} onSetRating={setUserRating} />
-                            {userRating > 0 && (<button button className="btn-add" onClick={handleAdd}>Add to list</button>)} </> : <p>You have rated this movie</p>
+                            {userRating > 0 && (<button button className="btn-add" onClick={handleAdd}>Add to list</button>)} </> : <p>You have rated this movie {watchedUserRating} <span>⭐</span></p>
                         }
                     </div>
                     <p>

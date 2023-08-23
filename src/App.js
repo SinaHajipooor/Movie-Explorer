@@ -50,7 +50,7 @@ export default function App() {
     }, [query])
     // methods 
     function handleSelectMovie(id) {
-        setSelectedId(selectedId === id ? null : id);
+        setSelectedId(curSelectedId => curSelectedId === id ? null : id);
     }
     function handleCloseMovie() {
         setSelectedId(null);

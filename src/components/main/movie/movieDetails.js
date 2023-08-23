@@ -6,12 +6,14 @@ import Loader from "../../elements/loader";
 const APIKEY = '76e7fb94';
 
 
-export default function MovieDetails({ selectedId, onCloseMovie }) {
+export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     // states 
     const [isLoading, setIsLoading] = useState(false);
     const [movie, setMovie] = useState({});
-    const { Title: title, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released, Actors: actors, Director: director, Genre: genre } = movie; // destructur the info that we want , from the movie object 
-    //     lifecycle 
+    const [userRating, setUserRating] = useState('');
+    const { Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released, Actors: actors, Director: director, Genre: genre } = movie; // destructur the info that we want , from the movie object 
+    const isWatched = watched.map(movie => movie.imdbID).includes(selectedId); // to check if the current movie is in the watched list or not 
+    //  lifecycle 
     useEffect(function () {
         async function fetchMovieDetails() {
             setIsLoading(true);
@@ -22,6 +24,12 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
         }
         fetchMovieDetails();
     }, [selectedId])
+    // methods
+    function handleAdd() {
+        const newWatchedMovie = { imdbID: selectedId, title, runtime: Number(runtime.split(' ').at(0)), poster, year, imdbRating: Number(imdbRating), userRating };
+        onAddWatched(newWatchedMovie);
+        onCloseMovie();
+    }
     // UI
     return <div className="details">
         {isLoading ? <Loader /> :
@@ -39,8 +47,9 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
                 </header>
                 <section>
                     <div className="rating">
-                        <StarRating maxRating={10} size={24} />
-
+                        {!isWatched ? <> < StarRating maxRating={10} size={24} onSetRating={setUserRating} />
+                            {userRating > 0 && (<button button className="btn-add" onClick={handleAdd}>Add to list</button>)} </> : <p>You have rated this movie</p>
+                        }
                     </div>
                     <p>
                         <em>{plot}</em>
@@ -50,5 +59,5 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
                 </section>
             </>
         }
-    </div>
+    </div >
 }

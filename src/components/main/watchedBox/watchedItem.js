@@ -1,7 +1,7 @@
 export default function WatchedItem({ movie }) {
     return <li key={movie.imdbID}>
-        <img src={movie.Poster} alt={`${movie.Title} poster`} />
-        <h3>{movie.Title}</h3>
+        <img src={movie.poster} alt={`${movie.title} poster`} />
+        <h3>{movie.title}</h3>
         <div>
             <p>
                 <span>⭐️</span>

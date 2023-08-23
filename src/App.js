@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Main from "./components/main/main";
 import NavBar from "./components/navBar/navBar";
-import { tempMovieData, tempWatchedData } from "./data/dummyData";
+import { tempWatchedData } from "./data/dummyData";
 import Search from "./components/navBar/search";
 import NumResults from "./components/navBar/numResults";
 import MovieList from "./components/main/movie/movieList";
@@ -18,7 +18,7 @@ const APIKEY = '76e7fb94';
 export default function App() {
     // state 
     const [movies, setMovies] = useState([]);
-    const [watched, setWatched] = useState([]);
+    const [watched, setWatched] = useState(tempWatchedData);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [query, setQuery] = useState('');
@@ -55,6 +55,9 @@ export default function App() {
     function handleCloseMovie() {
         setSelectedId(null);
     }
+    function handleAddWatch(movie) {
+        setWatched(curWatched => [...curWatched, movie])
+    }
     // UI
     return (
         <>
@@ -69,7 +72,7 @@ export default function App() {
                     {error && <ErrorMessage message={error} />}
                 </Box>
                 <Box>
-                    {selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} />
+                    {selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} onAddWatched={handleAddWatch} watched={watched} />
                         :
                         <> <WatchedSummary watched={watched} />
                             <WatchedList watched={watched} />

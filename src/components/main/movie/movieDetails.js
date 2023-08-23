@@ -25,7 +25,19 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
             setIsLoading(false);
         }
         fetchMovieDetails();
-    }, [selectedId])
+    }, [selectedId]);
+
+    useEffect(function () {
+        // at the very first there is no title so  : 
+        if (!title) return;
+        document.title = `Movie | ${title}`;
+        // clean up function 
+        return function () {
+            document.title = 'usePopcorn';
+        }
+    }, [title])
+
+
     // methods
     function handleAdd() {
         const newWatchedMovie = { imdbID: selectedId, title, runtime: Number(runtime.split(' ').at(0)), poster, year, imdbRating: Number(imdbRating), userRating };

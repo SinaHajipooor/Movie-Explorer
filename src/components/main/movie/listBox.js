@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-export default function Box({ element }) {
+export default function Box({ children }) {
     // state 
     const [isOpen, setIsOpen] = useState(true);
     // UI
@@ -13,7 +13,7 @@ export default function Box({ element }) {
             {isOpen ? "–" : "+"}
         </button>
         {isOpen && (
-            element
+            children
         )}
     </div>
 }

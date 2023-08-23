@@ -15,15 +15,40 @@ import MovieDetails from "./components/main/movie/movieDetails";
 const APIKEY = '76e7fb94';
 
 export default function App() {
-    // state 
+    //  ---------- state ---------- 
     const [movies, setMovies] = useState([]);
-    const [watched, setWatched] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [query, setQuery] = useState('');
     const [selectedId, setSelectedId] = useState(null);  // to know which movie is selected 
 
-    // lifecycles
+    //  get the watched movies from the local storage and set the as initial value for the state  
+    const [watched, setWatched] = useState(function () {
+        const storedValue = localStorage.getItem('watched');
+        return JSON.parse(storedValue);
+    });
+
+    //  ---------- methods ---------- 
+    function handleSelectMovie(id) {
+        setSelectedId(curSelectedId => curSelectedId === id ? null : id);
+    }
+    function handleCloseMovie() {
+        setSelectedId(null);
+    }
+    function handleAddWatch(movie) {
+        setWatched(curWatched => [...curWatched, movie])
+        // // save the added movie into the local storage
+        // localStorage.setItem('watched', JSON.stringify([...watched, movie]));
+    }
+    function handleDeleteWatched(id) {
+        setWatched(curWatched => curWatched.filter(movie => movie.imdbID !== id))
+    }
+    //  ---------- lifecycles ---------- 
+    // set the watched movies into local storage
+    useEffect(() => {
+        localStorage.setItem('watched', JSON.stringify(watched))
+    }, [watched])
+    //  fetch the list of movies depend on what use has been searched
     useEffect(() => {
         const controller = new AbortController()
         async function fetchMovies() {
@@ -58,21 +83,7 @@ export default function App() {
         }
     }, [query])
 
-
-    // methods 
-    function handleSelectMovie(id) {
-        setSelectedId(curSelectedId => curSelectedId === id ? null : id);
-    }
-    function handleCloseMovie() {
-        setSelectedId(null);
-    }
-    function handleAddWatch(movie) {
-        setWatched(curWatched => [...curWatched, movie])
-    }
-    function handleDeleteWatched(id) {
-        setWatched(curWatched => curWatched.filter(movie => movie.imdbID !== id))
-    }
-    // UI
+    //  ---------- UI ---------- 
     return (
         <>
             <NavBar >

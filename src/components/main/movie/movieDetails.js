@@ -37,6 +37,18 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
         }
     }, [title])
 
+    // escape the movie details when the user press the Escape on keyboard
+    useEffect(() => {
+        function callback(e) {
+            if (e.code === 'Escape') {
+                onCloseMovie();
+            }
+        }
+        document.addEventListener('keydown', callback);
+        return function () {
+            document.removeEventListener('keydown', callback);
+        }
+    }, [onCloseMovie])
 
     // methods
     function handleAdd() {

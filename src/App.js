@@ -57,6 +57,8 @@ export default function App() {
             controller.abort();
         }
     }, [query])
+
+
     // methods 
     function handleSelectMovie(id) {
         setSelectedId(curSelectedId => curSelectedId === id ? null : id);

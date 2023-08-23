@@ -51,6 +51,7 @@ export default function App() {
             setError('');
             return;
         }
+        handleCloseMovie();
         fetchMovies();
         // clean up function 
         return function () {

@@ -11,7 +11,6 @@ import Loader from "./components/elements/loader";
 import ErrorMessage from "./components/elements/errorMessage";
 import MovieDetails from "./components/main/movie/movieDetails";
 
-
 const APIKEY = '76e7fb94';
 
 export default function App() {
@@ -21,13 +20,11 @@ export default function App() {
     const [error, setError] = useState('');
     const [query, setQuery] = useState('');
     const [selectedId, setSelectedId] = useState(null);  // to know which movie is selected 
-
     //  get the watched movies from the local storage and set the as initial value for the state  
     const [watched, setWatched] = useState(function () {
         const storedValue = localStorage.getItem('watched');
         return JSON.parse(storedValue);
     });
-
     //  ---------- methods ---------- 
     function handleSelectMovie(id) {
         setSelectedId(curSelectedId => curSelectedId === id ? null : id);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import StarRating from "../../elements/starRating";
 import Loader from "../../elements/loader";
 
@@ -8,14 +8,20 @@ const APIKEY = '76e7fb94';
 
 export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     // states 
+    const countRef = useRef(0)
     const [isLoading, setIsLoading] = useState(false);
     const [movie, setMovie] = useState({});
     const [userRating, setUserRating] = useState('');
     const { Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released, Actors: actors, Director: director, Genre: genre } = movie; // destructur the info that we want , from the movie object 
     const isWatched = watched.map(movie => movie.imdbID).includes(selectedId); // to check if the current movie is in the watched list or not 
     const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating;
-
     //  lifecycle 
+    useEffect(() => {
+        if (userRating)
+            countRef.current++;
+    }, [userRating])
+
+
     useEffect(function () {
         async function fetchMovieDetails() {
             setIsLoading(true);
@@ -52,7 +58,7 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
 
     // methods
     function handleAdd() {
-        const newWatchedMovie = { imdbID: selectedId, title, runtime: Number(runtime.split(' ').at(0)), poster, year, imdbRating: Number(imdbRating), userRating };
+        const newWatchedMovie = { imdbID: selectedId, title, runtime: Number(runtime.split(' ').at(0)), poster, year, imdbRating: Number(imdbRating), userRating, countRatingDecisions: countRef.current };
         onAddWatched(newWatchedMovie);
         onCloseMovie();
     }

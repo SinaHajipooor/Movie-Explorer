@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // helper variable
 const APIKEY = '76e7fb94';
 
-export function useMovies(query, callback) {
+export function useMovies(query) {
     // --------------- states ----------------
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -11,8 +11,8 @@ export function useMovies(query, callback) {
     // --------------- methds ---------------- 
     //  fetch the list of movies depend on what use has been searched
     useEffect(function () {
-        // pass the callback function to execute only if it exists 
-        callback?.();
+        // // pass the callback function to execute only if it exists 
+        // callback?.();
         // define the abort controller
         const controller = new AbortController()
         async function fetchMovies() {

@@ -45,7 +45,11 @@ function reducer(state, action) {
             }
         // to navigate the user ito the next question and also reset the selected answer back to null
         case 'nextQuestion': return { ...state, index: state.index + 1, answer: null }
-        case 'finish': return { ...state, status: 'finished', highScore: state.points > state.highScore ? state.points : state.highScore }
+        case 'finish': return {
+            ...state, status: 'finished', highScore: state.points > state.highScore ? state.points : state.highScore
+        }
+        case 'restart':
+            return { ...initialState, questions: state.questions, status: 'ready' }
         default: new Error('Action is unknown')
     }
 }
@@ -76,6 +80,6 @@ export default function App() {
                 <NextButton dispatch={dispatch} answer={answer} index={index} numQuestions={numQuestions} />
             </>}
         </Main>
-        {status === 'finished' && <FinishScreen maxPossiblePoints={maxPossiblePoints} points={points} highScore={highScore} />}
+        {status === 'finished' && <FinishScreen maxPossiblePoints={maxPossiblePoints} points={points} highScore={highScore} dispatch={dispatch} />}
     </div>
 }

@@ -1,4 +1,3 @@
-import Question from "./Question";
 
 function NextButton({ dispatch, answer, index, numQuestions }) {
     // only show the button if the user has selected any answer
@@ -10,7 +9,7 @@ function NextButton({ dispatch, answer, index, numQuestions }) {
         </button>
     )
     if (index === numQuestions - 1) return (
-        <button className="btn btn-ui" onClick={() => dispatch({ type: 'finish' })}>
+        <button className="btn btn-ui" onClick={() => dispatch({ type: 'finished' })}>
             Finish
         </button>
     )

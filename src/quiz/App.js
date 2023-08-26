@@ -16,6 +16,8 @@ const initialState = {
     index: 0,
     // to know which answer is the selected answer by the user
     answer: null,
+    // user score
+    points: 0
 };
 
 function reducer(state, action) {
@@ -27,7 +29,15 @@ function reducer(state, action) {
         // when the user starts the quiz
         case 'start': return { ...state, status: 'active' }
         // to update the selected answer by user 
-        case 'newAnswer': return { ...state, answer: action.payload }
+        case 'newAnswer':
+            // to figure out which is the current question 
+            const question = state.questions.at(state.index)
+            return {
+                ...state,
+                answer: action.payload,
+                // to update the points only if the user has choosed the correct answer (each answe has its own point value so we have to add the current points of the user with points of the current question)
+                points: action.payload === question.correctOption ? state.points + question.points : state.points,
+            }
         default: new Error('Action is unknown')
     }
 }

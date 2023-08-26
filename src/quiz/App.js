@@ -8,9 +8,12 @@ import StartScreen from './StartScreen';
 import Question from './Question';
 
 const initialState = {
+    //list of questions 
     questions: [],
     // possible statuses :  'loading' , 'error' , 'ready' , 'active' , 'finished'
     status: 'loading',
+    // to know which question is the current question by it index
+    index: 0,
 };
 
 function reducer(state, action) {
@@ -25,7 +28,7 @@ function reducer(state, action) {
 export default function App() {
     // -------------- state ----------------
     // define the useReducer for managing states (destructure the state , the state has the status and questions feild )
-    const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, status, index }, dispatch] = useReducer(reducer, initialState);
     // calculate the questions count
     const numQuestions = questions.length;
     // -------------- lifecycle ----------------
@@ -40,7 +43,7 @@ export default function App() {
             {status === 'loading' && <Loader />}
             {status === 'error' && <Error />}
             {status === 'ready' && <StartScreen numQuestions={numQuestions} dispatch={dispatch} />}
-            {status === 'active' && <Question />}
+            {status === 'active' && <Question question={questions[index]} />}
         </Main>
     </div>
 }

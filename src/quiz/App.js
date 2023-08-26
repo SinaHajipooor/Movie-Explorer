@@ -25,9 +25,12 @@ const initialState = {
     points: 0,
     // user high score
     highScore: 0,
-    // time of the quiz
-    secondsRemaining: 10
+    // time of the quiz 
+    secondsRemaining: null,
 };
+
+// the time that user has for each question 
+const SECS_PER_QUESTION = 30;
 
 function reducer(state, action) {
     switch (action.type) {
@@ -35,8 +38,8 @@ function reducer(state, action) {
         case 'dataReceived': return { ...state, questions: action.payload, status: 'ready' };
         // when the data didnt fetch successfully
         case 'dataFailed': return { ...state, status: 'error' };
-        // when the user starts the quiz
-        case 'start': return { ...state, status: 'active' }
+        // when the user starts the quiz -- set up the timer base on the questions count 
+        case 'start': return { ...state, status: 'active', secondsRemaining: state.questions.length * SECS_PER_QUESTION }
         // to update the selected answer by user 
         case 'newAnswer':
             // to figure out which is the current question 
@@ -49,7 +52,7 @@ function reducer(state, action) {
             }
         // to navigate the user ito the next question and also reset the selected answer back to null
         case 'nextQuestion': return { ...state, index: state.index + 1, answer: null }
-        case 'finished': return {
+        case 'finish': return {
             ...state, status: 'finished', highScore: state.points > state.highScore ? state.points : state.highScore
         }
         case 'restart':
@@ -90,6 +93,6 @@ export default function App() {
                 </Footer>
             </>}
         </Main>
-        {status === 'finished' && <FinishScreen maxPossiblePoints={maxPossiblePoints} points={points} highScore={highScore} dispatch={dispatch} />}
+        {status === 'finish' && <FinishScreen maxPossiblePoints={maxPossiblePoints} points={points} highScore={highScore} dispatch={dispatch} />}
     </div>
 }

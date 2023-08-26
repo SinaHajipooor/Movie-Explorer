@@ -52,7 +52,7 @@ function reducer(state, action) {
             }
         // to navigate the user ito the next question and also reset the selected answer back to null
         case 'nextQuestion': return { ...state, index: state.index + 1, answer: null }
-        case 'finish': return {
+        case 'finished': return {
             ...state, status: 'finished', highScore: state.points > state.highScore ? state.points : state.highScore
         }
         case 'restart':
@@ -93,6 +93,6 @@ export default function App() {
                 </Footer>
             </>}
         </Main>
-        {status === 'finish' && <FinishScreen maxPossiblePoints={maxPossiblePoints} points={points} highScore={highScore} dispatch={dispatch} />}
+        {status === 'finished' && <FinishScreen maxPossiblePoints={maxPossiblePoints} points={points} highScore={highScore} dispatch={dispatch} />}
     </div>
 }

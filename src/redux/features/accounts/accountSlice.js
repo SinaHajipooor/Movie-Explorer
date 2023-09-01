@@ -21,7 +21,7 @@ export default function accountReducer(state = initialStateAccount, action) {
             return { ...state, loan: 0, loanPurpose: '', balance: state.balance - state.loan }
 
         // here instead of throwing new Error , we just return the original state
-        default:
+        default: return state;
     }
 }
 

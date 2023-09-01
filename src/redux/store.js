@@ -25,7 +25,21 @@ function reducer(state = initialState, action) {
     }
 }
 
-
+// store
 const store = createStore();
-
+// test
 store.dispatch({ type: 'account/deposit', payload: 500 })
+
+// action creators
+function deposit(amount) {
+    return { type: 'account/deposit', payload: amount };
+}
+function withdraw(amount) {
+    return { type: 'account/withdraw', payload: amount }
+}
+function requestLoan(amount, purpose) {
+    return { type: 'account/requestLoan', payload: { amount, purpose } }
+}
+function payLoan() {
+    return { type: 'account/payLoan' }
+}

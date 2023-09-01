@@ -1,3 +1,5 @@
+import { createStore } from "redux";
+
 const initialState = {
     balance: 0,
     loan: 0,
@@ -14,7 +16,7 @@ function reducer(state = initialState, action) {
         case 'account/requestLoadn':
             // he can only request a loan if he didnt reuqest it in the pas so we check if the loan is grater than zero or not 
             if (state.loan > 0) return state;
-            return { ...state, loan: action.payload }
+            return { ...state, loan: action.payload.amount, loanPurpose: action.payload.purpose, balance: state.balance + action.payload.amount }
         case 'account/payLoan':
             return { ...state, loan: 0, loanPurpose: '', balance: state.balance - state.loan }
 
@@ -22,3 +24,8 @@ function reducer(state = initialState, action) {
         default:
     }
 }
+
+
+const store = createStore();
+
+store.dispatch({ type: 'account/deposit', payload: 500 })
